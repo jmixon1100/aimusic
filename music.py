@@ -27,7 +27,7 @@ def main(args):
 def read_data(files):
 
     #initialize empty arrays for labels and notes
-    notes = np.zeros((len(files), 22))
+    notes = np.zeros((len(files), 21))
     labels = []
 
     for i, file_path in enumerate(files):
