@@ -20,9 +20,19 @@ def main(args):
     files = glob.glob(os.path.join(datafile))
     print("Number of scores being loaded: {0:d}".format(len(files)))
     labels, notes = read_data(files)
-
+    print("Current Key Statistics ")
+    keys, counts = get_num_of_keys(labels)
+    counts -= 1
+    np.set_printoptions(formatter={'int': '{:3d}'.format})
+    print(keys)
+    print(counts)
     pdb.set_trace()
 
+#method to help with selecting data to add to data set
+def get_num_of_keys(labels):
+    total_labels = np.arange(-7,8)
+    temp_labels = np.concatenate((total_labels,labels),axis=None)
+    return np.unique(temp_labels,return_counts=1)
 
 def read_data(files):
 
