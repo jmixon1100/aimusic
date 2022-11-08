@@ -18,7 +18,7 @@ def main(args):
     datafile = os.path.expanduser(args.data)
 
     files = glob.glob(os.path.join(datafile))
-
+    print("Number of scores being loaded: {0:d}".format(len(files)))
     labels, notes = read_data(files)
 
     pdb.set_trace()
