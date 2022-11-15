@@ -89,10 +89,13 @@ def encode_notes(notes):
 
 
 # will get used later for displaying data
-def encode_labels():
+def encode_labels(keys_nums):
     keys = {-7: 'Cb', -6: 'Gb', -5: 'Db', -4: 'Ab', -3: 'Eb', -2: 'Bb', -
             1: 'F', 0: 'C', 1: 'G', 2: 'D', 3: 'A', 4: 'E', 5: 'B', 6: 'F#', 7: 'C#'}
-
+    new_keys = []
+    for i in range(len(keys_nums)):
+        new_keys.append(keys[keys_nums[i]])
+    return new_keys
 
 if __name__ == '__main__':
     main(parser.parse_args())
