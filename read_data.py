@@ -22,6 +22,9 @@ def main(args):
 
     print("Number of scores being loaded: {:d}".format(len(files)))
     labels, notes = read_data(files)
+    
+    np.savetxt("data.txt",notes,fmt='%d',delimiter=',')
+    np.savetxt("labels.txt",labels,fmt='%d')
 
     print("Current Key Statistics ")
     keys, counts = get_num_of_keys(labels)
