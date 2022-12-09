@@ -10,34 +10,62 @@ import sys
 ROOT = os.path.dirname(os.path.abspath(__file__))
 parser = argparse.ArgumentParser(
     description="Get note data from musicXML files")
-parser.add_argument('-x', '--data',
+parser.add_argument('-x', '--traindata',
                     help='path to data folder, defaults to ROOT/scores/*.musicxml',
                     default=os.path.join(ROOT, './scores', '*.musicxml'))
 
+parser.add_argument('-y', '--testdata',
+                    help='path to data folder, defaults to ROOT/test_scores/*.musicxml',
+                    default=os.path.join(ROOT, './test_scores', '*.musicxml'))
+
 
 def main(args):
-    datafile = os.path.expanduser(args.data)
+    training_data_file = os.path.expanduser(args.traindata)
+    testing_data_file = os.path.expanduser(args.testdata)
 
-    files = glob.glob(os.path.join(datafile))
+    training_files = glob.glob(os.path.join(training_data_file))
+    testing_files = glob.glob(os.path.join(testing_data_file))
 
-    print("Number of scores being loaded: {:d}".format(len(files)))
-    labels, notes = read_data(files)
-    
-    np.savetxt("data.txt",notes,fmt='%d',delimiter=',')
-    np.savetxt("labels.txt",labels,fmt='%d')
+    print("Number of training scores being loaded: {:d}".format(len(training_files)))
+    train_labels, train_notes = read_data(training_files)
+    np.savetxt("trainingdata.txt", train_notes, fmt='%d', delimiter=',')
+    np.savetxt("traininglabels.txt", train_labels, fmt='%d')
 
-    print("Current Key Statistics ")
-    keys, counts = get_num_of_keys(labels)
+    print("Current Key Statistics For Training Data")
+    keys, counts = get_num_of_keys(train_labels)
     counts -= 1
 
-    np.set_printoptions(formatter={'int':'|{:3d}|'.format},linewidth=sys.maxsize,threshold=sys.maxsize)
-    print(''.center(89,'='))
+    np.set_printoptions(formatter={'int': '|{:3d}|'.format},
+                        linewidth=sys.maxsize, threshold=sys.maxsize)
+    print(''.center(89, '='))
     print(str(keys).lstrip('[').rstrip(']'))
     print(str(counts).lstrip('[').rstrip(']'))
-    print(''.center(89,'='))
-    pdb.set_trace()
+    print(''.center(89, '='))
 
+    print(''.center(30, '='))
+    print("GENERATING TEST DATA")
+    print(''.center(30, '='))
+
+    test_labels, test_notes = read_data(testing_files)
+
+    print("\nCurrent Key Statistics For Test Data")
+    keys, counts = get_num_of_keys(test_labels)
+    counts -= 1
+
+    np.set_printoptions(formatter={'int': '|{:3d}|'.format},
+                        linewidth=sys.maxsize, threshold=sys.maxsize)
+    print(''.center(89, '='))
+    print(str(keys).lstrip('[').rstrip(']'))
+    print(str(counts).lstrip('[').rstrip(']'))
+    print(''.center(89, '='))
+
+    
+
+    np.savetxt("testdata.txt", test_notes, fmt='%d', delimiter=',')
+    np.savetxt("testlabels.txt", test_labels, fmt='%d')
 # method to help with selecting data to add to data set
+
+
 def get_num_of_keys(labels):
     total_labels = np.arange(-7, 8)
     temp_labels = np.concatenate((total_labels, labels), axis=None)
@@ -80,6 +108,8 @@ def read_data(files):
         for j in range(len(note_value)):
             notes[i, note_value[j]] += note_counts[j]
 
+   
+
     return labels, notes
 
 
@@ -90,6 +120,11 @@ def encode_notes(notes):
         new_notes.append(tones[notes[i]])
     return new_notes
 
+def convert_labels(keys_nums):
+    temp_arr = keys_nums
+    for i,key in enumerate(keys_nums):
+        temp_arr[i] += abs(key)
+    return temp_arr
 
 # will get used later for displaying data
 def encode_labels(keys_nums):
@@ -99,6 +134,7 @@ def encode_labels(keys_nums):
     for i in range(len(keys_nums)):
         new_keys.append(keys[keys_nums[i]])
     return new_keys
+
 
 if __name__ == '__main__':
     main(parser.parse_args())
