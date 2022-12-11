@@ -89,15 +89,16 @@ def read_data(files):
         last_key = 0
         oof = False
         # get key(labels)
-        for i,key in enumerate(xml_str.xpath('//key')):
+        for k,key in enumerate(xml_str.xpath('//key')):
             temp_key = int(key.xpath(".//fifths/text()")[0])
-            if i == 0 or last_key == temp_key:
+            if k == 0 :
                 last_key = temp_key
                 labels.append(temp_key)
             else:
                 print("ERROR: TOO MANY KEYS @ " + file_path)
-                labels.pop()
                 oof = True
+                # del labels[-(1):]
+                
                 break
         # get note values
         
@@ -108,30 +109,29 @@ def read_data(files):
                                         [0]) if pitch.xpath(".//alter/text()") != [] else 0)
 
         # convert notes to their int equivalents
-        temp_notes = np.asarray(encode_notes(temp_notes))
+            temp_notes = np.asarray(encode_notes(temp_notes))
 
-        # add the accidental values to get the actual pitch of the notes
-        temp_notes += temp_accidentals
+            # add the accidental values to get the actual pitch of the notes
+            temp_notes += temp_accidentals
 
-        # returns note index, and number of occurances of each note
-        note_value, note_counts = np.unique(temp_notes, return_counts=1)
+            # returns note index, and number of occurances of each note
+            note_value, note_counts = np.unique(temp_notes, return_counts=1)
 
-        # update the note counts
-        for j in range(len(note_value)):
+            # update the note counts
+            for j in range(len(note_value)):
 
-            #accounting for double sharps and flats
-            if note_value[j] > 20:
-                temp_value = 1
-            elif note_value[j] < 0:
-                temp_value = 19
-            else :    
-                temp_value = note_value[j]
+                #accounting for double sharps and flats
+                if note_value[j] > 20:
+                    temp_value = 1
+                elif note_value[j] < 0:
+                    temp_value = 19
+                else :    
+                    temp_value = note_value[j]
 
-            try:
-                notes[i, temp_value] += note_counts[j]
-            except:
-                pdb.set_trace()
-
+                
+                    notes[i, temp_value] += note_counts[j]
+        
+    # notes = np.delete(notes,np.where(~notes.any(axis=1))[0],0)
    
 
     return labels, notes
