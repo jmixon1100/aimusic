@@ -75,7 +75,7 @@ def get_num_of_keys(labels):
 def read_data(files):
 
     # initialize empty arrays for labels and notes
-    notes = np.zeros((len(files), 21))
+    notes = np.zeros((len(files), 22))
     labels = []
 
     for i, file_path in enumerate(files):
