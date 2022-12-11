@@ -86,18 +86,26 @@ def read_data(files):
         # current xml document being read
         xml_str = etree.parse(file_path)
 
+        last_key = 0
+        oof = False
         # get key(labels)
         for i,key in enumerate(xml_str.xpath('//key')):
-            if i == 0:
-                labels.append(int(key.xpath(".//fifths/text()")[0]))
+            temp_key = int(key.xpath(".//fifths/text()")[0])
+            if i == 0 or last_key == temp_key:
+                last_key = temp_key
+                labels.append(temp_key)
             else:
                 print("ERROR: TOO MANY KEYS @ " + file_path)
+                labels.pop()
+                oof = True
                 break
         # get note values
-        for pitch in xml_str.xpath('//pitch'):
-            temp_notes.append(pitch.xpath(".//step/text()")[0])
-            temp_accidentals.append(int(pitch.xpath(".//alter/text()")
-                                    [0]) if pitch.xpath(".//alter/text()") != [] else 0)
+        
+        if(not oof):
+            for pitch in xml_str.xpath('//pitch'):
+                temp_notes.append(pitch.xpath(".//step/text()")[0])
+                temp_accidentals.append(int(pitch.xpath(".//alter/text()")
+                                        [0]) if pitch.xpath(".//alter/text()") != [] else 0)
 
         # convert notes to their int equivalents
         temp_notes = np.asarray(encode_notes(temp_notes))
