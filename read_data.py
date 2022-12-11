@@ -75,7 +75,7 @@ def get_num_of_keys(labels):
 def read_data(files):
 
     # initialize empty arrays for labels and notes
-    notes = np.zeros((len(files), 22))
+    notes = np.zeros((len(files), 21))
     labels = []
 
     for i, file_path in enumerate(files):
@@ -89,6 +89,7 @@ def read_data(files):
         # get key(labels)
         for key in xml_str.xpath('//key'):
             labels.append(int(key.xpath(".//fifths/text()")[0]))
+            break
         # get note values
         for pitch in xml_str.xpath('//pitch'):
             temp_notes.append(pitch.xpath(".//step/text()")[0])
@@ -106,7 +107,19 @@ def read_data(files):
 
         # update the note counts
         for j in range(len(note_value)):
-            notes[i, note_value[j]] += note_counts[j]
+
+            #accounting for double sharps and flats
+            if note_value[j] > 20:
+                temp_value = 1
+            elif note_value[j] < 0:
+                temp_value = 19
+            else :    
+                temp_value = note_value[j]
+
+            try:
+                notes[i, temp_value] += note_counts[j]
+            except:
+                pdb.set_trace()
 
    
 
