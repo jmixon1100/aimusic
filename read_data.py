@@ -87,9 +87,12 @@ def read_data(files):
         xml_str = etree.parse(file_path)
 
         # get key(labels)
-        for key in xml_str.xpath('//key'):
-            labels.append(int(key.xpath(".//fifths/text()")[0]))
-            break
+        for i,key in enumerate(xml_str.xpath('//key')):
+            if i == 0:
+                labels.append(int(key.xpath(".//fifths/text()")[0]))
+            else:
+                print("ERROR: TOO MANY KEYS @ " + file_path)
+                break
         # get note values
         for pitch in xml_str.xpath('//pitch'):
             temp_notes.append(pitch.xpath(".//step/text()")[0])
