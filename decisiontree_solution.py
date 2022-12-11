@@ -79,12 +79,19 @@ def main(args):
     cm = confusion_matrix(ytest, pred)
     print("Confusion matrix:")
     print('\n'.join([''.join(['{:4}'.format(item) for item in row]) for row in cm]))
-
+    key_sigs = encode_labels(key_sigs)
     # Visualize the tree using matplotlib and plot_tree
     fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(11, 5), dpi=150)
-    plot_tree(clf, filled=True, rounded=True, fontsize=6)
+    plot_tree(clf,class_names=key_sigs, filled=True, rounded=True, fontsize=6)
     plt.show()
 
+def encode_labels(keys_nums):
+    keys = {-7: 'Cb', -6: 'Gb', -5: 'Db', -4: 'Ab', -3: 'Eb', -2: 'Bb', -
+            1: 'F', 0: 'C', 1: 'G', 2: 'D', 3: 'A', 4: 'E', 5: 'B', 6: 'F#', 7: 'C#'}
+    new_keys = []
+    for i in range(len(keys_nums)):
+        new_keys.append(keys[keys_nums[i]])
+    return new_keys
 
 if __name__ == '__main__':
     main(parser.parse_args())
