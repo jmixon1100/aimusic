@@ -85,7 +85,7 @@ def main(args):
     fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(11, 5), dpi=150)
     plot_tree(clf,class_names=key_sigs, filled=True, rounded=True, fontsize=4)
     ax.properties()['children'] = [replace_text(i) for i in ax.properties()['children']]
-    
+    plt.title("Key Signature Recognition Decision Tree")
     plt.show()
     
 def replace_text(obj):
