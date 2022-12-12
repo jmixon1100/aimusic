@@ -1,6 +1,11 @@
-TO RUN THIS CODE: There are 3 files one for each of the techniques, running any of these with the default arguments should yeild a result in the console or in the form of a plot. The code and folders to generate data files is included but not nessecary for the above instructions.
+# AI Music Recognition
+## TO RUN THIS CODE: 
+There are 3 files one for each of the techniques, running any of these with the default arguments should yeild a result in the console or in the form of a plot. The code and folders to generate data files is included but **_not_** nessecary for the above instructions.
 
-A Brief Overview of Music Theory Basics
+#### Project Objective
+By scanning through music, can we determine the key of the piece? We feed music into a variety of machine learning models, and use them in order to predict key signatures of future pieces.
+
+### A Brief Overview of Music Theory Basics
 
 To begin with, there are seven names describing each note in Western musical harmony, the letters A - G. Each rising white key on a keyboard represents an increase in note value by one. Once the last letter, G, is reached, the cycle begins again, so the next letter after G would be A again. This pattern repeats up the entire length of the keyboard.
 
@@ -29,3 +34,6 @@ This example shows the basics of what musical notation might look like, as well 
         In this example, there are two flats placed in the key signature, B♭ and E♭. This means that, throughout the piece, every B and E encountered should, by default, be played as B♭ and E♭. Additionally, the scale that would be associated with these accidentals would be Bb major. Thus, by looking at the key signature, it can be said that this piece would be in Bb major.
 
 ![](images/image5.png)
+        Now, let’s look at one last example, this time using a real-world piece. This excerpt is from Bach’s Partita No. 3 for the violin. By using the notes in the piece, and the key signature to modify the notes, we can see that the notes used in this excerpt are E, F#, G#, A, B, C#, D#, and E. As a result, we can determine that the key for this piece is E major.
+	
+
