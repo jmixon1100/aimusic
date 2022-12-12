@@ -8,8 +8,7 @@ import numpy as np
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 from sklearn.naive_bayes import GaussianNB
-from sklearn.naive_bayes import BernoulliNB
-from sklearn.naive_bayes import ComplementNB
+
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -63,22 +62,14 @@ def main(args):
     print("Loading notes...")
     notes = np.loadtxt(notes_path, dtype=int, delimiter=',')
 
-    # Change indexing to 0
-    # xtrain[:, 0:2] -= 1
-    # ytrain += 7
-    # xtest[:, 0:2] -= 1
-    # ytest += 7
-
-    # Extract useful parameters
-    num_training_documents = len(ytrain)
-    num_testing_documents = len(ytest)
-    num_words = len(notes)
-    num_newsgroups = len(key_sigs)
 
     clf = GaussianNB()
     clf.fit(xtrain, ytrain)
     pred = clf.predict(xtest)
-
+    
+    cm = confusion_matrix(ytest, pred)
+    print("Confusion matrix:")
+    print('\n'.join([''.join(['{:4}'.format(item) for item in row]) for row in cm]))
     # Compare training and test accuracy
     print("train accuracy =", np.mean(ytrain == clf.predict(xtrain)))
     print("test accuracy =", np.mean(ytest == pred))
