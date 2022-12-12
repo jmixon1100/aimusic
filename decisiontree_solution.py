@@ -5,9 +5,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import pdb
+import re
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.metrics import confusion_matrix
 import argparse
+import matplotlib
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
 parser = argparse.ArgumentParser(description="Use a Naive Bayes model to classify text documents.")
@@ -81,9 +83,18 @@ def main(args):
     print('\n'.join([''.join(['{:4}'.format(item) for item in row]) for row in cm]))
     key_sigs = encode_labels(key_sigs)
     # Visualize the tree using matplotlib and plot_tree
-    fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(11, 5), dpi=150)
+    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(11, 5), dpi=150)
     plot_tree(clf,class_names=key_sigs, filled=True, rounded=True, fontsize=4)
+
+    ax.properties()['children'] = [replace_text(i) for i in ax.properties()['children']]
     plt.show()
+    
+def replace_text(obj):
+    if type(obj) == matplotlib.text.Annotation:
+        txt = obj.get_text()
+        txt = re.sub("\nsamples[^$]*class","\nclass",txt)
+        obj.set_text(txt)
+    return obj
 
 def encode_labels(keys_nums):
     keys = {-7: 'Cb', -6: 'Gb', -5: 'Db', -4: 'Ab', -3: 'Eb', -2: 'Bb', -
