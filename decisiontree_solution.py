@@ -1,5 +1,4 @@
 # decisiontree.py
-"""Predict Parkinson's disease based on dysphonia measurements using a decision tree."""
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -12,7 +11,7 @@ import argparse
 import matplotlib
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
-parser = argparse.ArgumentParser(description="Use a Naive Bayes model to classify text documents.")
+parser = argparse.ArgumentParser(description="Use a Decision Tree to classify text documents.")
 
 parser.add_argument('-x', '--training_data',
                     help='path to training data file, defaults to ROOT/trainingdata.txt',
@@ -35,7 +34,7 @@ parser.add_argument('-n', '--notes',
 
 
 def main(args):
-    print("Document Classification using Naïve Bayes Classifiers")
+    print("Decsion Tree for Key Signature Recognition")
     print("=======================")
     print("PRE-PROCESSING")
     print("=======================")
@@ -86,7 +85,7 @@ def main(args):
     fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(11, 5), dpi=150)
     plot_tree(clf,class_names=key_sigs, filled=True, rounded=True, fontsize=4)
 
-    ax.properties()['children'] = [replace_text(i) for i in ax.properties()['children']]
+    
     plt.show()
     
 def replace_text(obj):
