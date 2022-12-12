@@ -1,3 +1,5 @@
+
+
 A Brief Overview of Music Theory Basics
 
 To begin with, there are seven names describing each note in Western musical harmony, the letters A - G. Each rising white key on a keyboard represents an increase in note value by one. Once the last letter, G, is reached, the cycle begins again, so the next letter after G would be A again. This pattern repeats up the entire length of the keyboard.
@@ -27,19 +29,3 @@ This example shows the basics of what musical notation might look like, as well 
         In this example, there are two flats placed in the key signature, B♭ and E♭. This means that, throughout the piece, every B and E encountered should, by default, be played as B♭ and E♭. Additionally, the scale that would be associated with these accidentals would be Bb major. Thus, by looking at the key signature, it can be said that this piece would be in Bb major.
 
 ![](images/image5.png)
-
-        Now, let’s look at one last example, this time using a real-world piece. This excerpt is from Bach’s Partita No. 3 for the violin. By using the notes in the piece, and the key signature to modify the notes, we can see that the notes used in this excerpt are E, F#, G#, A, B, C#, D#, and E. As a result, we can determine that the key for this piece is E major.
-
-        This brings us to the objective of our project: by scanning through music, can we determine the key of the piece? We feed music into a variety of machine learning models, and use them in order to predict key signatures of future pieces.
-
-The Machine Learning Algorithms Used:
-
-Naive Bayes
-
-        Using the naive bayes machine learning algorithm we achieved a training accuracy of 84%  and a testing accuracy of  67%.
-
-Decision Tree
-
-Our decision tree for key signature recognition yielded a 100% training accuracy and a 52.3% test accuracy on an input of 59 training samples and 21 testing samples, using gini as the criterion and a splitting randomly. These parameters significantly improved the accuracy from 42% when using entropy as criterion and best for splitting. I think going forward the accuracy can be improved by adding more training and testing data, but some of our original data had too many key changes and accidentals for our model to handle, so we had to remove those samples. ![](images/image1.png)
-
-Neural Network
