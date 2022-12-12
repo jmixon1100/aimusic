@@ -1,4 +1,4 @@
-
+TO RUN THIS CODE: There are 3 files one for each of the techniques, running any of these with the default arguments should yeild a result in the console or in the form of a plot. The code and folders to generate data files is included but not nessecary for the above instructions.
 
 A Brief Overview of Music Theory Basics
 
