@@ -8,10 +8,13 @@ import numpy as np
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import BernoulliNB
+from sklearn.naive_bayes import ComplementNB
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
-parser = argparse.ArgumentParser(description="Use a Naive Bayes model to classify text documents.")
+parser = argparse.ArgumentParser(
+    description="Use a Naive Bayes model to classify text documents.")
 parser.add_argument('-x', '--training_data',
                     help='path to training data file, defaults to ROOT/trainingdata.txt',
                     default=os.path.join(ROOT, 'trainingdata.txt'))
@@ -48,17 +51,17 @@ def main(args):
 
     # Load data from relevant files
     print("Loading training data...")
-    xtrain = np.loadtxt(training_data_path, dtype=int,delimiter=',')
+    xtrain = np.loadtxt(training_data_path, dtype=int, delimiter=',')
     print("Loading training labels...")
-    ytrain = np.loadtxt(training_labels_path, dtype=int,delimiter=',')
+    ytrain = np.loadtxt(training_labels_path, dtype=int, delimiter=',')
     print("Loading testing data...")
-    xtest = np.loadtxt(testing_data_path, dtype=int,delimiter=',')
+    xtest = np.loadtxt(testing_data_path, dtype=int, delimiter=',')
     print("Loading testing labels...")
-    ytest = np.loadtxt(testing_labels_path, dtype=int,delimiter=',')
+    ytest = np.loadtxt(testing_labels_path, dtype=int, delimiter=',')
     print("Loading keys...")
-    key_sigs = np.loadtxt(key_sig_path, dtype=int,delimiter=',')
+    key_sigs = np.loadtxt(key_sig_path, dtype=int, delimiter=',')
     print("Loading notes...")
-    notes = np.loadtxt(notes_path, dtype=int,delimiter=',')
+    notes = np.loadtxt(notes_path, dtype=int, delimiter=',')
 
     # Change indexing to 0
     # xtrain[:, 0:2] -= 1
@@ -74,9 +77,11 @@ def main(args):
 
     clf = GaussianNB()
     clf.fit(xtrain, ytrain)
+    pred = clf.predict(xtest)
 
-    print(clf.predict([xtest[1,:]]))
-
+    # Compare training and test accuracy
+    print("train accuracy =", np.mean(ytrain == clf.predict(xtrain)))
+    print("test accuracy =", np.mean(ytest == pred))
 
 if __name__ == '__main__':
     main(parser.parse_args())

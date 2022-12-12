@@ -82,7 +82,7 @@ def main(args):
     key_sigs = encode_labels(key_sigs)
     # Visualize the tree using matplotlib and plot_tree
     fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(11, 5), dpi=150)
-    plot_tree(clf,class_names=key_sigs, filled=True, rounded=True, fontsize=6)
+    plot_tree(clf,class_names=key_sigs, filled=True, rounded=True, fontsize=4)
     plt.show()
 
 def encode_labels(keys_nums):
