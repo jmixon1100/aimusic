@@ -63,8 +63,8 @@ def main(args):
 
     # Train a decision tree via information gain on the training data
     clf = DecisionTreeClassifier(
-        criterion="entropy",
-        splitter="best",
+        criterion="gini",
+        splitter="random",
         max_depth=None,
         random_state=0)
     clf.fit(xtrain, ytrain)
