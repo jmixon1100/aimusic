@@ -1,6 +1,6 @@
 # AI Music Recognition
 ## TO RUN THIS CODE: 
-There are 3 files one for each of the techniques, running any of these with the default arguments should yeild a result in the console or in the form of a plot. The code and folders to generate data files is included but **_not_** nessecary for the above instructions.
+There are 3 files one for each of the techniques, running any of these with the default arguments should yeild a result in the console or in the form of a plot. The code to generate data files is included but **_not_** nessecary for the above instructions.
 
 #### Project Objective
 By scanning through music, can we determine the key of the piece? We feed music into a variety of machine learning models, and use them in order to predict key signatures of future pieces.
