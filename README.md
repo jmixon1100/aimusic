@@ -2,7 +2,7 @@ A Brief Overview of Music Theory Basics
 
 To begin with, there are seven names describing each note in Western musical harmony, the letters A - G. Each rising white key on a keyboard represents an increase in note value by one. Once the last letter, G, is reached, the cycle begins again, so the next letter after G would be A again. This pattern repeats up the entire length of the keyboard.
 
-![image4.png](images/)
+![](images/image4.png)
 
 However, one can see that there are more than just white keys on a keyboard. So, how do we notate in music that we want to access the black keys? By applying something called “accidentals” to our seven given notes. Adding a sharp(#) or a flat(♭) after a note indicates that that note should be played a half-step higher or lower, respectively. A half-step is defined as the smallest possible interval between two notes; so, a G# would be the black key directly to the right of the G key, and a D♭ would be the black key directly to the left of the D key. Note that, in the cases of B# and E#, and C♭ and F♭, there is no black key to go to; in these cases, we just go to the next white key, so a B# is the same key as C.
 
