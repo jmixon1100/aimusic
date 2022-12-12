@@ -1,5 +1,4 @@
 # decisiontree.py
-"""Predict Parkinson's disease based on dysphonia measurements using a decision tree."""
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -10,7 +9,7 @@ from sklearn.metrics import confusion_matrix
 import argparse
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
-parser = argparse.ArgumentParser(description="Use a Naive Bayes model to classify text documents.")
+parser = argparse.ArgumentParser(description="Use a Decision Tree to classify text documents.")
 
 parser.add_argument('-x', '--training_data',
                     help='path to training data file, defaults to ROOT/trainingdata.txt',
@@ -33,7 +32,7 @@ parser.add_argument('-n', '--notes',
 
 
 def main(args):
-    print("Document Classification using Naïve Bayes Classifiers")
+    print("Decsion Tree for Key Signature Recognition")
     print("=======================")
     print("PRE-PROCESSING")
     print("=======================")
@@ -80,9 +79,10 @@ def main(args):
     print("Confusion matrix:")
     print('\n'.join([''.join(['{:4}'.format(item) for item in row]) for row in cm]))
     key_sigs = encode_labels(key_sigs)
-    # Visualize the tree using matplotlib and plot_tree
-    fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(11, 5), dpi=150)
-    plot_tree(clf,class_names=key_sigs, filled=True, rounded=True, fontsize=4)
+   # Visualize the tree using matplotlib and plot_tree
+    fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(150, 11), dpi=150)
+    plot_tree(clf, feature_names=notes, class_names=key_sigs, filled=True, rounded=True, fontsize=3)
+    plt.title("Key Signature Decision Tree")
     plt.show()
 
 def encode_labels(keys_nums):
