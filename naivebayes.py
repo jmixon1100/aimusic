@@ -1,5 +1,5 @@
 # naivebayes.py
-"""Perform document classification using a Naive Bayes model."""
+"""Perform key classification using a Naive Bayes model."""
 
 import argparse
 import os
