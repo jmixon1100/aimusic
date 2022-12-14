@@ -26,7 +26,8 @@ def main(args):
     training_files = glob.glob(os.path.join(training_data_file))
     testing_files = glob.glob(os.path.join(testing_data_file))
 
-    print("Number of training scores being loaded: {:d}".format(len(training_files)))
+    print("Number of training scores being loaded: {:d}".format(
+        len(training_files)))
     train_labels, train_notes = read_data(training_files)
     np.savetxt("trainingdata.txt", train_notes, fmt='%d', delimiter=',')
     np.savetxt("traininglabels.txt", train_labels, fmt='%d')
@@ -47,7 +48,8 @@ def main(args):
     print(''.center(30, '='))
 
     test_labels, test_notes = read_data(testing_files)
-
+    print("Number of testing scores being loaded: {:d}".format(
+        len(testing_files)))
     print("\nCurrent Key Statistics For Test Data")
     keys, counts = get_num_of_keys(test_labels)
     counts -= 1
@@ -58,8 +60,6 @@ def main(args):
     print(str(keys).lstrip('[').rstrip(']'))
     print(str(counts).lstrip('[').rstrip(']'))
     print(''.center(89, '='))
-
-    
 
     np.savetxt("testdata.txt", test_notes, fmt='%d', delimiter=',')
     np.savetxt("testlabels.txt", test_labels, fmt='%d')
@@ -87,22 +87,22 @@ def read_data(files):
         xml_str = etree.parse(file_path)
 
         last_key = 0
-        oof = False
+        error = False
         # get key(labels)
-        for k,key in enumerate(xml_str.xpath('//key')):
+        for k, key in enumerate(xml_str.xpath('//key')):
             temp_key = int(key.xpath(".//fifths/text()")[0])
-            if k == 0 :
+            if k == 0:
                 last_key = temp_key
                 labels.append(temp_key)
             else:
                 print("ERROR: TOO MANY KEYS @ " + file_path)
-                oof = True
+                error = True
                 # del labels[-(1):]
-                
+
                 break
         # get note values
-        
-        if(not oof):
+
+        if (not error):
             for pitch in xml_str.xpath('//pitch'):
                 temp_notes.append(pitch.xpath(".//step/text()")[0])
                 temp_accidentals.append(int(pitch.xpath(".//alter/text()")
@@ -120,19 +120,17 @@ def read_data(files):
             # update the note counts
             for j in range(len(note_value)):
 
-                #accounting for double sharps and flats
+                # accounting for double sharps and flats
                 if note_value[j] > 20:
                     temp_value = 1
                 elif note_value[j] < 0:
                     temp_value = 19
-                else :    
+                else:
                     temp_value = note_value[j]
 
-                
                     notes[i, temp_value] += note_counts[j]
-        
+
     # notes = np.delete(notes,np.where(~notes.any(axis=1))[0],0)
-   
 
     return labels, notes
 
@@ -144,13 +142,16 @@ def encode_notes(notes):
         new_notes.append(tones[notes[i]])
     return new_notes
 
+
 def convert_labels(keys_nums):
     temp_arr = keys_nums
-    for i,key in enumerate(keys_nums):
+    for i, key in enumerate(keys_nums):
         temp_arr[i] += abs(key)
     return temp_arr
 
 # will get used later for displaying data
+
+
 def encode_labels(keys_nums):
     keys = {-7: 'Cb', -6: 'Gb', -5: 'Db', -4: 'Ab', -3: 'Eb', -2: 'Bb', -
             1: 'F', 0: 'C', 1: 'G', 2: 'D', 3: 'A', 4: 'E', 5: 'B', 6: 'F#', 7: 'C#'}

@@ -131,18 +131,15 @@ def main(args):
 
     # Plot the performance over time
     # fig, ax = plt.subplots()
-    # p1, = plt.plot(history.history['accuracy'], label='training accuracy')
-    # p2, = plt.plot(history.history['val_accuracy'], label='testing accuracy')
-    # plt.xlabel("Epoch")
-    # plt.ylabel("Accuracy")
-    # plt.title("MNIST Performance for 784-300-300-10 NN")
-    # plt.legend(loc='lower right')
-    # plt.show()
+    p1, = plt.plot(ytest,'bo')
+    p2, = plt.plot(pred,'ro')
+    
+    plt.show()
 
     # Show misclassifications
 
     # Save model to file
-    # model.save(os.path.expanduser(os.path.join(ROOT, 'mnist_model.h5')))
+    model.save(os.path.expanduser(os.path.join(ROOT, 'mnist_model.h5')))
 
     # pdb.set_trace()
 
